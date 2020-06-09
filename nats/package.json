@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@surajng/common": "^1.0.4",
     "@types/node": "^14.0.9",
     "node-nats-streaming": "^0.3.2",
     "ts-node-dev": "^1.0.0-pre.44",

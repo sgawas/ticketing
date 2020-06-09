@@ -27,3 +27,24 @@ Content-Type: application/json
 ###
 POST https://localhost/api/users/signout
 Content-Type: application/json
+
+###
+POST https://localhost/api/tickets/
+Content-Type: application/json
+
+{
+	"title": "Concert",
+	"price": 200
+}
+
+###
+GET https://localhost//api/tickets/5edebdc7d16b0200246bcb4d/
+
+###
+PUT https://localhost/api/tickets/5edec3daf6d4fe0018067908
+Content-Type: application/json
+
+{
+	"title": "Concert",
+	"price": 10
+}
