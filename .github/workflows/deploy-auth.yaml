@@ -20,6 +20,6 @@ jobs:
       - run: docker push surajng/auth
       - uses: digitalocean/action-doctl@v2
         with:
-          token: $${{ secrets.DIGITAL-OCEAN_TOKEN }}
+          token: $${{ secrets.DIGITALOCEAN_TOKEN }}
       - run: doctl kubernetes cluster kubeconfig save ticketing
       - run: kubectl rollout restart deployment auth-depl
