@@ -50,19 +50,21 @@ async (req: Request, res: Response)=> {
     status: OrderStatus.Created,
     expiresAt: expiration,
     ticket
-  })
+  });
 
   await order.save();
+  
   // publish an event to other services saying order is created
   new OrderCreatedPublisher(natsWrapper.client).publish({
     id: order.id,
     status: order.status,
     userId: order.userId,
-    expiresAt: order.expiresAt.toISOString(),
+    expiresAt: order.expiresAt.toISOString(), // returns utc timestamp
     ticket: {
       id: ticket.id,
       price: ticket.price
-    }
+    },
+    version: order.version
   })
 
   res.status(201).send(order);

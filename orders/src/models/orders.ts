@@ -1,9 +1,13 @@
 import mongoose from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
+
 import { OrderStatus } from '@surajng/common'
 
 import { TicketDoc } from './tickets';
 
+// exporting OrderStatus so that it can be access by all other files from single source instaed of calling common and orders file order schema
 export { OrderStatus };
+
 // an interface that describes the properties 
 // that are required to create new order
 interface OrderAttrs{
@@ -21,6 +25,7 @@ interface OrderDoc extends mongoose.Document{
     status: OrderStatus;
     expiresAt: Date;
     ticket: TicketDoc;
+    version: number;
 }
 
 // an interface that describes the propeties
@@ -56,6 +61,8 @@ const orderSchema = new mongoose.Schema({
         }
     }
 });
+orderSchema.set('versionKey', 'version');
+orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (attrs: OrderAttrs) => {
     return new Order(attrs);

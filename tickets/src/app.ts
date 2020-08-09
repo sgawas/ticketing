@@ -16,6 +16,8 @@ app.use(cookieSession({
   signed: false,
   secure: process.env.NODE_ENV !== 'test'
 }));
+// to incoming req.session property to get jwt if not then call next
+// if there then get req.currentUser after decoding jwt 
 app.use(currentUser);
 
 app.use(showTicketRouter);

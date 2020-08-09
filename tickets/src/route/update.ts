@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
-import { requireAuth, validateRequest, NotFoundError, NotAuthorizedError } from '@surajng/common';
+import { requireAuth, validateRequest, NotFoundError, NotAuthorizedError, BadRequestError } from '@surajng/common';
 
 import { Ticket } from '../models/ticket';
 import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
@@ -25,6 +25,9 @@ router.put('/api/tickets/:id', requireAuth, [
         throw new NotFoundError();
     }
 
+    if(ticket.orderId){
+      throw new BadRequestError('Ticket reserved by orderId. Cannot edit the ticket.');
+    }
     if(ticket.userId !== req.currentUser!.id){
       throw new NotAuthorizedError();
     }
@@ -40,7 +43,8 @@ router.put('/api/tickets/:id', requireAuth, [
       id: ticket.id,
       title: ticket.title,
       price: ticket.price,
-      userId: ticket.userId
+      userId: ticket.userId,
+      version: ticket.version
     });
 
     res.status(201).send(ticket);

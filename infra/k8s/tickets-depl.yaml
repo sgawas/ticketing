@@ -16,6 +16,7 @@ spec:
         - name: tickets
           image: surajng/tickets
           env:
+            # uses pod id as client id
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:

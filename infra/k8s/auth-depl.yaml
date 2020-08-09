@@ -1,20 +1,34 @@
 apiVersion: apps/v1
+# type of object we want to create
 kind: Deployment
+# config options for object we want to create
 metadata:
+  # when deployment is created, give it a name of auth-depl
   name: auth-depl
+# exact attributes we want to apply to object we are about to create
 spec:
+  # no of pods we want to create running some partiular image
   replicas: 1
+  # look at all different pods created and find pods with label app: auth
   selector:
+    # Deployment will find pods it creates with below label
     matchLabels:
       app: auth
+  # exact configuration we want pod to be created with by this deployment
   template:
     metadata:
+      # this label will get applied to pods
       labels:
         app: auth
+    # configuration options of pod
     spec:
+      # can create many containers in single pod
       containers:
+        # create a container with name of auth
         - name: auth
+          # exact image we want to use
           image: surajng/auth
+          # setting up env variables
           env:
             - name: MONGO_URI
               value: "mongodb://auth-mongo-srv:27017/auth"
@@ -29,10 +43,16 @@ kind: Service
 metadata:
   name: auth-srv
 spec:
+  # find all pods with label as app: auth
+  # default service will be Cluster-IP if not mentioned
+  # Service will govern access to below selector mentioned pod
   selector:
     app: auth
+  # list out all ports we want to expose for this pod
   ports:
     - name: auth
       protocol: TCP
+      # service port no
       port: 3000
+      # container port no running inside pod
       targetPort: 3000

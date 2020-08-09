@@ -15,9 +15,11 @@ router.post('/api/tickets', requireAuth, [
       .trim()
       .withMessage('title must be provided'),
     body('price')
+      .not()
+      .isEmpty()
       .trim()
       .isFloat({ gt : 0 })
-      .withMessage('Price must be greater than 0')
+      .withMessage('Price must be greater than 0 or price must be provided')
   ], validateRequest, async (req: Request, res: Response) => {
     const  { title, price } = req.body;
     const ticket = Ticket.build({
@@ -32,7 +34,8 @@ router.post('/api/tickets', requireAuth, [
       id: ticket.id,
       title: ticket.title,
       price: ticket.price,
-      userId: ticket.userId
+      userId: ticket.userId,
+      version: ticket.version
     });
     
     res.status(201).send(ticket);
