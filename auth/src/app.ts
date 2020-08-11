@@ -18,7 +18,7 @@ app.use(
     // disable encryption on cookie as JSON already encrypted
     signed: false,
     // always https connection if true. NODE_ENV is false for test this is required for tc execution since test it http connection instead of https.
-    secure: process.env.NODE_ENV !== "test",
+    secure: false,
   })
 );
 app.use(currentUserRouter);

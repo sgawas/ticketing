@@ -14,7 +14,7 @@ app.set('trust proxy', true);
 app.use(json());
 app.use(cookieSession({
   signed: false,
-  secure: process.env.NODE_ENV !== 'test'
+  secure: false
 }));
 // to incoming req.session property to get jwt if not then call next.
 // if there then get req.currentUser after decoding jwt 
