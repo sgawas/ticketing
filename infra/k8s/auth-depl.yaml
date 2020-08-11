@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-# type of object we want to create
+# type of object we want to create.s
 kind: Deployment
 # config options for object we want to create
 metadata:
