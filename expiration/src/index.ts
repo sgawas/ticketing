@@ -33,7 +33,3 @@ const start = async ()=>{
 }
 
 start();
-
-// kubectl create secret generic jwt-secret --from-literal=JWT_KEY=MY_SECRET_KEY
-// kubectl create secret generic jwt-secret --from-literal=JWT_KEY=MY_SECRET_KEY
-// kubectl get secrets
