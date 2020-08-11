@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   # any request coming to cluster is handled by ingress and routed
-  # routing rules to redirect request to particular pods
+  # routing rules to redirect request to particular pods.
   rules:
     # different apps hosted on localhost. it can be anything post.com
     # instead of localhost:3000 or 4000 we can use post.com
