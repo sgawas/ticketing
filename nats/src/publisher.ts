@@ -26,7 +26,7 @@ stan.on('connect', async ()=>{
     //     id: '123',
     //     title: 'concert',
     //     price: 20
-    // });
+    // })
 
     // stan.publish('ticket:created', data, ()=>{
     //     console.log('event pubslished');

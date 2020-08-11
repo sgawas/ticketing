@@ -57,7 +57,7 @@ global.signin = () => {
   // Turn that session into JSON
   const sessionJSON = JSON.stringify(session);
 
-  // Take JSON and encode it as base64
+  // Take JSON and encode it as base64.s
   const base64 = Buffer.from(sessionJSON).toString('base64');
 
   // return a string thats the cookie with the encoded data

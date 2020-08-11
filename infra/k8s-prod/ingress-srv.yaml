@@ -11,7 +11,7 @@ spec:
   rules:
     # different apps hosted on localhost. it can be anything post.com
     # instead of localhost:3000 or 4000 we can use post.com
-    - host: localhost
+    - host: www.ticketing-app.xyz
       http:
         paths:
           - path: /api/users/?(.*)
