@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
+import jwt from 'jsonwebtoken';
 
 import { validateRequest, BadRequestError } from '@surajng/common';
 import { User } from '../models/user';
@@ -34,7 +35,20 @@ async ( req: Request, res: Response ) => {
   }
 
   // generate jwt and assigns it to req.session
-  jwtGenerate({email: existingUser.email, id: existingUser.id}, req);
+  // jwtGenerate({email: existingUser.email, id: existingUser.id}, req);
+  // Generate JWT
+  const userJwt = jwt.sign(
+    {
+      id: existingUser.id,
+      email: existingUser.email,
+    },
+    process.env.JWT_KEY!
+  );
+
+  // Store it on session object
+  req.session = {
+    jwt: userJwt,
+  };
 
   res.status(200).send({existingUser});
 });

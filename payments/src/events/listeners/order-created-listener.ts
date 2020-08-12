@@ -11,13 +11,12 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
   // order service keeps track of all tickets to its local ticket collection 
   async onMessage(data: OrderCreatedEvent["data"], msg: Message) {
     // id field passes same value from order serv to payment serv
-    const { status, id , userId, version} = data;
     const order = Order.build({
-      id,
-      status,
+      id: data.id,
       price: data.ticket.price,
-      userId,
-      version
+      status: data.status,
+      userId: data.userId,
+      version: data.version,
     });
     await order.save();
     msg.ack();

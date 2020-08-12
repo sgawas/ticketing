@@ -9,7 +9,7 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: OrderCancelledEvent["data"], msg: Message) {
-    const order = await Order.findById({
+    const order = await Order.findOne({
       _id: data.id,
       version: data.version - 1
     });
