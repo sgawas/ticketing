@@ -23,7 +23,7 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: "**/*.ts"
+          - src: "**/*.js"
             dest: .
     - image: surajng/tickets
       context: tickets
