@@ -1,12 +1,12 @@
-import express, { Request, Response } from 'express';
-import { requireAuth, NotFoundError, NotAuthorizedError } from '@surajng/common';
+import express, { Request, Response } from "express";
+import { requireAuth, NotFoundError, NotAuthorizedError } from "@surajng/common";
 
-import { Order } from '../models/orders';
+import { Order } from "../models/orders";
 
 const router = express.Router();
 
-router.get('/api/orders/:orderId', requireAuth, async (req: Request, res: Response)=> {
-    const order = await Order.findById(req.params.orderId).populate('ticket');
+router.get("/api/orders/:orderId", requireAuth, async (req: Request, res: Response)=> {
+    const order = await Order.findById(req.params.orderId).populate("ticket");
     if(!order){
         throw new NotFoundError();
     }

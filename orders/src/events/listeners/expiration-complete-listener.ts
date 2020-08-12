@@ -4,7 +4,7 @@ import { Subjects, Listener, ExpirationCompleteEvent, OrderStatus} from "@surajn
 
 import { queueGroupName } from "./queue-group-name";
 import { Order } from "../../models/orders";
-import { OrderCancelledPublisher } from '../publishers/order-cancelled-publisher';
+import { OrderCancelledPublisher } from "../publishers/order-cancelled-publisher";
 
 
 export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent> {
@@ -12,7 +12,7 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
   queueGroupName = queueGroupName;
 
   async onMessage(data: ExpirationCompleteEvent["data"], msg: Message) {
-    const order = await Order.findById(data.orderId).populate('ticket');
+    const order = await Order.findById(data.orderId).populate("ticket");
 
     if (!order) {
       throw new Error("Order not found");

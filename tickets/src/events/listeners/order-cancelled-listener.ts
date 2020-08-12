@@ -1,22 +1,22 @@
-import { Message } from 'node-nats-streaming';
+import { Message } from "node-nats-streaming";
 
-import { Listener, OrderCancelledEvent, Subjects } from '@surajng/common';
+import { Listener, OrderCancelledEvent, Subjects } from "@surajng/common";
 
-import { queueGroupName } from './queue-group-name';
-import { Ticket } from '../../models/ticket';
-import { TicketUpdatedPublisher } from '../publishers/ticket-updated-publisher';
+import { queueGroupName } from "./queue-group-name";
+import { Ticket } from "../../models/ticket";
+import { TicketUpdatedPublisher } from "../publishers/ticket-updated-publisher";
 
 export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
     subject: Subjects.OrderCancelled = Subjects.OrderCancelled;
     queueGroupName = queueGroupName;
 
-    async onMessage(data: OrderCancelledEvent['data'], msg: Message){
+    async onMessage(data: OrderCancelledEvent["data"], msg: Message){
         // find the ticket that which order is cancelled
         const ticket = await Ticket.findById(data.ticket.id);
 
         // if no ticket then throw err
         if(!ticket){
-            throw new Error('Ticket not found');
+            throw new Error("Ticket not found");
         }
         // mark the ticket is not reserved by setting its orderId=null since order is cancelled
         ticket.set({ orderId: undefined });

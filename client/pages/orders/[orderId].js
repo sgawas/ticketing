@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import StripeCheckout from 'react-stripe-checkout';
+import StripeCheckout from "react-stripe-checkout";
 import Router from "next/router";
 
 import useRequest from "../../hooks/use-request";
@@ -8,12 +8,12 @@ const OrderShow = ({ order, currentUser })=> {
     const [ timeLeft, setTimeLeft ] = useState(0);
     
     const { doRequest, errors} = useRequest({
-        url: '/api/payments',
-        method: 'post',
+        url: "/api/payments",
+        method: "post",
         body: {
             orderId: order.id
         },
-        onSuccess: ()=> Router.push('/orders')
+        onSuccess: ()=> Router.push("/orders")
     })
     // when component renders this function runs only once 
     useEffect(()=> {

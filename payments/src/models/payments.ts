@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 interface PaymentAttrs {
     orderId: string;
@@ -37,7 +37,7 @@ paymentSchema.statics.build = (attrs: PaymentAttrs) => {
 };
 
 const Payment = mongoose.model<PaymentDoc, PaymentModel>(
-    'Payment',
+    "Payment",
     paymentSchema
 );
 

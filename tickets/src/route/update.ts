@@ -1,23 +1,23 @@
-import express, { Request, Response } from 'express';
-import { body } from 'express-validator';
-import { requireAuth, validateRequest, NotFoundError, NotAuthorizedError, BadRequestError } from '@surajng/common';
+import express, { Request, Response } from "express";
+import { body } from "express-validator";
+import { requireAuth, validateRequest, NotFoundError, NotAuthorizedError, BadRequestError } from "@surajng/common";
 
-import { Ticket } from '../models/ticket';
-import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
-import { natsWrapper } from '../nats-wrapper';
+import { Ticket } from "../models/ticket";
+import { TicketUpdatedPublisher } from "../events/publishers/ticket-updated-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
-router.put('/api/tickets/:id', requireAuth, [
-    body('title')
+router.put("/api/tickets/:id", requireAuth, [
+    body("title")
       .not()
       .isEmpty()
       .trim()
-      .withMessage('title must be provided'),
-    body('price')
+      .withMessage("title must be provided"),
+    body("price")
       .trim()
       .isFloat({ gt : 0 })
-      .withMessage('Price must be greater than 0')
+      .withMessage("Price must be greater than 0")
   ], validateRequest, async (req: Request, res: Response) => {
     const  { title, price } = req.body;
     const ticket = await Ticket.findById(req.params.id);
@@ -26,7 +26,7 @@ router.put('/api/tickets/:id', requireAuth, [
     }
 
     if(ticket.orderId){
-      throw new BadRequestError('Ticket reserved by orderId. Cannot edit the ticket.');
+      throw new BadRequestError("Ticket reserved by orderId. Cannot edit the ticket.");
     }
     if(ticket.userId !== req.currentUser!.id){
       throw new NotAuthorizedError();

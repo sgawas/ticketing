@@ -1,15 +1,15 @@
-import express, { Request, Response } from 'express';
-import { requireAuth, NotFoundError, NotAuthorizedError } from '@surajng/common';
-import { Order, OrderStatus } from '../models/orders';
-import { OrderCancelledPublisher } from '../events/publishers/order-cancelled-publisher';
-import { natsWrapper } from '../nats-wrapper';
+import express, { Request, Response } from "express";
+import { requireAuth, NotFoundError, NotAuthorizedError } from "@surajng/common";
+import { Order, OrderStatus } from "../models/orders";
+import { OrderCancelledPublisher } from "../events/publishers/order-cancelled-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
-router.delete('/api/orders/:orderId', requireAuth, async (req: Request, res: Response)=> {
+router.delete("/api/orders/:orderId", requireAuth, async (req: Request, res: Response)=> {
     const { orderId } = req.params;
     
-    const order = await Order.findById(orderId).populate('ticket');
+    const order = await Order.findById(orderId).populate("ticket");
 
     if(!order){
         throw new NotFoundError();

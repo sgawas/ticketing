@@ -2,7 +2,7 @@ import { Subjects, PaymentCreatedEvent, Listener, OrderStatus } from "@surajng/c
 import { Message } from "node-nats-streaming";
 
 import { queueGroupName } from "./queue-group-name";
-import { Order } from '../../models/orders';
+import { Order } from "../../models/orders";
 
 export class PaymentCreatedListener extends Listener<PaymentCreatedEvent> {
   subject: Subjects.PaymentCreated = Subjects.PaymentCreated;
@@ -13,7 +13,7 @@ export class PaymentCreatedListener extends Listener<PaymentCreatedEvent> {
     // id field passes same value from ticket serv to order serv
     const order = await Order.findById( data.orderId );
     if(!order){
-      throw new Error('Order not found');
+      throw new Error("Order not found");
     };
     
     order.set({

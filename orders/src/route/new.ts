@@ -1,26 +1,26 @@
-import express, { Request, Response } from 'express';
-import mongoose from 'mongoose';
-import { body } from 'express-validator';
-import { requireAuth, validateRequest, NotFoundError, OrderStatus, BadRequestError } from '@surajng/common';
+import express, { Request, Response } from "express";
+import mongoose from "mongoose";
+import { body } from "express-validator";
+import { requireAuth, validateRequest, NotFoundError, OrderStatus, BadRequestError } from "@surajng/common";
 
-import { Order } from '../models/orders';
-import { Ticket } from '../models/tickets';
-import { OrderCreatedPublisher } from '../events/publishers/order-created-publisher';
-import { natsWrapper } from '../nats-wrapper';
+import { Order } from "../models/orders";
+import { Ticket } from "../models/tickets";
+import { OrderCreatedPublisher } from "../events/publishers/order-created-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
 const EXPIRATION_WINDOW_SECONDS = 1 * 60;
 
-router.post('/api/orders', 
+router.post("/api/orders", 
 requireAuth,
 [
-  body('ticketId')
+  body("ticketId")
     .not()
     .isEmpty()
     .trim()
     .custom((input:string)=> mongoose.Types.ObjectId.isValid(input))
-    .withMessage('ticketId must be provided')
+    .withMessage("ticketId must be provided")
 ],
 validateRequest,
 async (req: Request, res: Response)=> {
@@ -37,7 +37,7 @@ async (req: Request, res: Response)=> {
   // If found an order that means ticket is already reserved and should throw an error.
   const isReserved = await ticket.isReserved();
   if(isReserved){
-    throw new BadRequestError('Ticket already reserved.');
+    throw new BadRequestError("Ticket already reserved.");
   }
 
   // calculate time of expiration for the order 

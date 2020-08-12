@@ -1,6 +1,6 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import buildClient from '../api/build-client';
-import Header from '../components/header';
+import "bootstrap/dist/css/bootstrap.css";
+import buildClient from "../api/build-client";
+import Header from "../components/header";
 
 const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
@@ -15,7 +15,7 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
 // Custom App component getInitinialProps context === {Component, ctx: {req,res}}
 AppComponent.getInitialProps = async appContext => {
   const client = buildClient(appContext.ctx);
-  const { data } = await client.get('/api/users/currentuser');
+  const { data } = await client.get("/api/users/currentuser");
 
   let pageProps = {};
   // call getInitialProps of individual components

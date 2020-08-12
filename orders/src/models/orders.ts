@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
-import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
+import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current"
 
-import { OrderStatus } from '@surajng/common'
+import { OrderStatus } from "@surajng/common"
 
-import { TicketDoc } from './tickets';
+import { TicketDoc } from "./tickets";
 
 // exporting OrderStatus so that it can be access by all other files from single source instaed of calling common and orders file order schema
 export { OrderStatus };
@@ -50,7 +50,7 @@ const orderSchema = new mongoose.Schema({
     },
     ticket:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Ticket'
+        ref: "Ticket"
     }
 }, {
     toJSON: {
@@ -60,13 +60,13 @@ const orderSchema = new mongoose.Schema({
         }
     }
 });
-orderSchema.set('versionKey', 'version');
+orderSchema.set("versionKey", "version");
 orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (attrs: OrderAttrs) => {
     return new Order(attrs);
 };
 
-const Order  = mongoose.model<OrderDoc, OrderModel>('Order', orderSchema);
+const Order  = mongoose.model<OrderDoc, OrderModel>("Order", orderSchema);
 
 export { Order };

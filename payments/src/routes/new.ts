@@ -1,26 +1,26 @@
-import express, {Request, Response} from 'express';
-import { body } from 'express-validator';
+import express, {Request, Response} from "express";
+import { body } from "express-validator";
 
-import { requireAuth, validateRequest, NotFoundError, NotAuthorizedError, OrderStatus, BadRequestError } from '@surajng/common';
-import { Order } from '../models/orders';
-import { stripe } from '../stripe';
-import { Payment } from '../models/payments';
-import { PaymentCreatedPublisher } from '../events/publishers/payment-created-publisher';
-import { natsWrapper } from '../nats-wrapper';
+import { requireAuth, validateRequest, NotFoundError, NotAuthorizedError, OrderStatus, BadRequestError } from "@surajng/common";
+import { Order } from "../models/orders";
+import { stripe } from "../stripe";
+import { Payment } from "../models/payments";
+import { PaymentCreatedPublisher } from "../events/publishers/payment-created-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
-router.post('/api/payments', 
+router.post("/api/payments", 
             requireAuth,
             [
-                body('token')
+                body("token")
                     .not()
                     .isEmpty()
-                    .withMessage('Token can not be empty.'),
-                body('orderId')
+                    .withMessage("Token can not be empty."),
+                body("orderId")
                     .not()
                     .isEmpty()
-                    .withMessage('OrderId can not be empty.')    
+                    .withMessage("OrderId can not be empty.")    
             ], 
             validateRequest,
             async (req: Request, res: Response)=> {
@@ -37,12 +37,12 @@ router.post('/api/payments',
     };
     
     if(order.status === OrderStatus.Cancelled){
-        throw new BadRequestError('Order is in cancelled state.');
+        throw new BadRequestError("Order is in cancelled state.");
     };
 
     const charge = await stripe.charges.create({
         amount: order.price * 100,
-        currency: 'usd',
+        currency: "usd",
         source: token
     });
 

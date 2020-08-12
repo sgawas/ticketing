@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
+import { updateIfCurrentPlugin } from "mongoose-update-if-current"
 
 import { Order, OrderStatus } from "../models/orders";
 
@@ -51,16 +51,16 @@ const ticketSchema = new mongoose.Schema(
   }
 );
 
-ticketSchema.set('versionKey', 'version');
+ticketSchema.set("versionKey", "version");
 ticketSchema.plugin(updateIfCurrentPlugin);
 
 // if you dont use above plugin to update version
 // this function will run  when we try to save record to db
 // it will try to find record with appropriate id but also with current version - 1
-// ticketSchema.pre('save', function(done){
+// ticketSchema.pre("save", function(done){
 //   // @ts-ignore
 //   this.$where = {
-//     version: this.get('version') - 1,
+//     version: this.get("version") - 1,
 //   }
 //   done();
 // });

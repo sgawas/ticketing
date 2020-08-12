@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 const LandingPage = ({ currentUser, tickets }) => {
   console.log(tickets);
@@ -38,7 +38,7 @@ const LandingPage = ({ currentUser, tickets }) => {
 // context will contain req object.
 LandingPage.getInitialProps = async (context, client, currentUser) => {
   // when we use axios to fetch data we get res object with data field in it, hence destructured.
-  const { data } = await client.get('/api/tickets');
+  const { data } = await client.get("/api/tickets");
 
   // this tickets will be merged to props passed to landing page, hence at top we have  { currentUser, tickets} 
   return { tickets : data };

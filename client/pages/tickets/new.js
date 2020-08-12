@@ -1,20 +1,20 @@
-import { useState } from 'react';
-import Router from 'next/router';
+import { useState } from "react";
+import Router from "next/router";
 
-import useRequest from '../../hooks/use-request';
+import useRequest from "../../hooks/use-request";
 
 const NewTicket = () => {
-    const [title, setTitle] = useState('');
-    const [price, setPrice] = useState('');
+    const [title, setTitle] = useState("");
+    const [price, setPrice] = useState("");
 
     const { doRequest, errors } = useRequest({
-        url: '/api/tickets',
-        method: 'post',
+        url: "/api/tickets",
+        method: "post",
         body: {
             title, price
         },
         // on success of ticket create user is directed to home page
-        onSuccess: () => Router.push('/')
+        onSuccess: () => Router.push("/")
     });
 
     const onSubmit = (event) => {

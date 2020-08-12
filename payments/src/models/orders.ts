@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
-import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
+import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current"
 
-import { OrderStatus } from '@surajng/common'
+import { OrderStatus } from "@surajng/common"
 
 // exporting OrderStatus so that it can be access by all other files from single source instaed of calling common and orders file order schema
 export { OrderStatus };
@@ -56,7 +56,7 @@ const orderSchema = new mongoose.Schema({
         }
     }
 });
-orderSchema.set('versionKey', 'version');
+orderSchema.set("versionKey", "version");
 orderSchema.plugin(updateIfCurrentPlugin);
 
 // when we build order we need to pass _id = attrs.id as per mongoose id req
@@ -70,6 +70,6 @@ orderSchema.statics.build = (attrs: OrderAttrs) => {
     });
 };
 
-const Order  = mongoose.model<OrderDoc, OrderModel>('Order', orderSchema);
+const Order  = mongoose.model<OrderDoc, OrderModel>("Order", orderSchema);
 
 export { Order };

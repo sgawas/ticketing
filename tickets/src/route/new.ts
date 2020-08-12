@@ -1,25 +1,25 @@
-import express, { Request, Response } from 'express';
-import { body } from 'express-validator';
-import { requireAuth, validateRequest } from '@surajng/common';
+import express, { Request, Response } from "express";
+import { body } from "express-validator";
+import { requireAuth, validateRequest } from "@surajng/common";
 
-import { Ticket } from '../models/ticket';
-import { TicketCreatedPublisher } from '../events/publishers/ticket-created-publisher';
-import { natsWrapper } from '../nats-wrapper';
+import { Ticket } from "../models/ticket";
+import { TicketCreatedPublisher } from "../events/publishers/ticket-created-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
-router.post('/api/tickets', requireAuth, [
-    body('title')
+router.post("/api/tickets", requireAuth, [
+    body("title")
       .not()
       .isEmpty()
       .trim()
-      .withMessage('title must be provided'),
-    body('price')
+      .withMessage("title must be provided"),
+    body("price")
       .not()
       .isEmpty()
       .trim()
       .isFloat({ gt : 0 })
-      .withMessage('Price must be greater than 0 or price must be provided')
+      .withMessage("Price must be greater than 0 or price must be provided")
   ], validateRequest, async (req: Request, res: Response) => {
     const  { title, price } = req.body;
     const ticket = Ticket.build({
