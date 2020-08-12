@@ -33,7 +33,7 @@ const LandingPage = ({ currentUser, tickets }) => {
         </tbody>
       </table>
     </div>
-  )
+  );
 };
 // context will contain req object.
 LandingPage.getInitialProps = async (context, client, currentUser) => {

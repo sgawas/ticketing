@@ -13,7 +13,7 @@ const OrderShow = ({ order, currentUser })=> {
         body: {
             orderId: order.id
         },
-        onSuccess: (payment)=> Router.push('/orders')
+        onSuccess: ()=> Router.push('/orders')
     })
     // when component renders this function runs only once 
     useEffect(()=> {
@@ -56,7 +56,7 @@ const OrderShow = ({ order, currentUser })=> {
     );
 };
 
-OrderShow.getInitialProps = (context, client) => {
+OrderShow.getInitialProps = async (context, client) => {
     const { orderId } = context.query;
     const { data } = await client.get(`/api/orders/${orderId}`); 
     return { order:  data };
