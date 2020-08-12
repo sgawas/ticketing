@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import StripeCheckout from 'react-stripe-checkout';
 import Router from "next/router";
 
-import useRequest from "../../../hooks/use-request";
+import useRequest from "../../hooks/use-request";
 
 const OrderShow = ({ order, currentUser })=> {
     const [ timeLeft, setTimeLeft ] = useState(0);
